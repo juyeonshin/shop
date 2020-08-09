@@ -10,3 +10,11 @@ def create(request):
         content=request.POST.get('content')
         Post.objects.create(title=title, content=content)
     return redirect('main')
+
+def main(request):
+    posts=Post.objects.all()
+    return render(request, 'posts/main.html', {'posts':posts})
+
+def show(request, id):
+    post = Post.objects.get(pk=id)
+    return render(request,'posts/show.html', {'post': post})
