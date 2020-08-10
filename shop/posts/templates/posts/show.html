@@ -8,4 +8,5 @@
 <h3>상품 정보 : {{ post.content }} </h3><br>
 <h3>등록 날짜 : {{ post.created_at }} </h3><br>
 <a href="{% url 'posts:update' post.pk %}" class="btn btn-primary"> 수정하기 </a>
+<a href="{% url 'posts:delete' post.pk %}" class="btn btn-primary"> 삭제하기 </a>
 {% endblock %}
