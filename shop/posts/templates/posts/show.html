@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
+
 {% block content %}
+{% include 'shared/_navbar.html' %}
+
 <h1>상세보기 페이지</h1>
-<h3>글 제목 : {{ post.title }} </h3><br>
-<h3>글 내용 : {{ post.content }} </h3><br>
-<h3>작성 시각 : {{ post.created_at }} </h3><br>
+<h3>상품 이름 : {{ post.title }} </h3><br>
+<h3>상품 정보 : {{ post.content }} </h3><br>
+<h3>등록 날짜 : {{ post.created_at }} </h3><br>
+<a href="{% url 'posts:update' post.pk %}" class="btn btn-primary"> 수정하기 </a>
 {% endblock %}
