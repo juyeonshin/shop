@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import new,create, main, show
+from .views import new, create, main, show
 
 app_name="posts"
 urlpatterns = [
