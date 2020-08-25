@@ -7,6 +7,65 @@
 <h3>상품 이름 : {{ post.title }} </h3><br>
 <h3>상품 정보 : {{ post.content }} </h3><br>
 <h3>등록 날짜 : {{ post.created_at }} </h3><br>
-<a href="{% url 'posts:update' post.pk %}" class="btn btn-primary"> 수정하기 </a>
-<a href="{% url 'posts:delete' post.pk %}" class="btn btn-primary"> 삭제하기 </a>
+<h3>수정 시각: {{post.updated_at}}</h3><br>
+<h3>조회수: {{post.view_count}}</h3><br>
+
+{%if post.user %}
+	{% if post.user.username == 'user' %}
+	 <h3> 작성자: {{post.user.last_name}} {{post.user.first_name}}</h3><br>
+	{% else %}
+	 <h3> 작성자: {{post.user}}</h3><br>
+	{% endif %}
+{% else %}
+	<h3> 작성자: 알 수 없음</h3><br>
+{% endif %}
+
+{% if post.image %}
+	 <img src ="{{ post.image.url }}">
+{%  endif %}
+
+{% if post.user == user %}
+	<a href="{% url 'posts:update' post.pk %}" class="btn btn-primary"> 수정하기 </a>
+ 	<a href="{% url 'posts:delete' post.pk %}" class="btn btn-danger"> 삭제하기</a> 
+ {% endif %} 
+
+ <div class="container mt-5"> 
+    <form class="form-row" action="{% url 'posts:create_comment' post.id %}" method="POST">
+        {% csrf_token %}
+        <textarea class="form-control col-11 mr-2" name="content"
+        placeholder="댓글내용입력..."></textarea> 
+        <input type="submit" class="btn btn-primary" value="확인">
+    </form>
+</div>
+<div class="container mt-5 mt-5">
+    {% for comment in comments %}
+    <div class="card-body">
+        <b>{{ commnet.user}}</b> : {{comment.content}}
+        <small>{{comment.created_at}}</small>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+<div class="container mt-5"> 
+    <form class="form-row" action="{% url 'posts:create_comment' post.id %}" method="POST">
+        {% csrf_token %}
+        <textarea class="form-control col-11 mr-2" name="content"
+        placeholder="댓글내용입력..."></textarea> 
+        <input type="submit" class="btn btn-primary" value="확인">
+    </form>
+</div>
+<div class="container mt-5 mt-5">
+    {% for comment in comments %}
+    <div class="card-body">
+        <b>{{ commnet.user}}</b> : {{comment.content}}
+        <small>{{comment.created_at}}</small>
+    </div>
+        {% if comment.user == user %}
+        <a href="{% url 'posts:comment_delete' post.id comment.id %}">댓글 삭제</a>
+        <a href="{% url 'posts:comment_update' post.id comment.id %}">댓글 수정</a>     
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
 {% endblock %}
