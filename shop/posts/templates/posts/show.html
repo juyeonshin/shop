@@ -1,3 +1,4 @@
+
 {% extends 'base.html' %}
 
 {% block content %}
@@ -45,16 +46,9 @@
     </div>
     {% endfor %}
 </div>
-{% endblock %}
 
-<div class="container mt-5"> 
-    <form class="form-row" action="{% url 'posts:create_comment' post.id %}" method="POST">
-        {% csrf_token %}
-        <textarea class="form-control col-11 mr-2" name="content"
-        placeholder="댓글내용입력..."></textarea> 
-        <input type="submit" class="btn btn-primary" value="확인">
-    </form>
-</div>
+
+
 <div class="container mt-5 mt-5">
     {% for comment in comments %}
     <div class="card-body">
@@ -68,4 +62,5 @@
     </div>
     {% endfor %}
 </div>
-{% endblock %}
+
+{% endblock content %}
